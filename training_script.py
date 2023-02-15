@@ -47,7 +47,7 @@ class Params:
         str
     ] = None  # checkpoints will be saved to cwd (current working directory)
     LOG_MODEL: bool = False  # whether to log the model to neptune after training
-    GPU: Optional[int] = None  # set to None for cpu training
+    GPU: Optional[int] = 1 #None  # set to None for cpu training
     LR: float = 0.001
     PRECISION: int = 32
     CLASSES: int = 2
