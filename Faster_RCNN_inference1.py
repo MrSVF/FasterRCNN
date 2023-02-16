@@ -7,10 +7,10 @@ import numpy as np
 import torch
 from torch.utils.data import DataLoader
 
-from api_key_neptune import get_api_key
-from datasets import ObjectDetectionDatasetSingle, ObjectDetectionDataSet
-from transformations import ComposeSingle, FunctionWrapperSingle, normalize_01, ComposeDouble, FunctionWrapperDouble
-from utils import get_filenames_of_path, collate_single
+from pytorch_faster_rcnn_tutorial.api_key_neptune import get_api_key
+from pytorch_faster_rcnn_tutorial.datasets import ObjectDetectionDatasetSingle, ObjectDetectionDataSet
+from pytorch_faster_rcnn_tutorial.transformations import ComposeSingle, FunctionWrapperSingle, normalize_01, ComposeDouble, FunctionWrapperDouble
+from pytorch_faster_rcnn_tutorial.utils import get_filenames_of_path, collate_single
 
 # parameters
 params = {'EXPERIMENT': 'experiment_name',
