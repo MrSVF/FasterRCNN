@@ -60,8 +60,8 @@ class Params:
     FPN: bool = False
     ANCHOR_SIZE: Tuple[Tuple[int, ...], ...] = ((32, 64, 128, 256, 512),)
     ASPECT_RATIOS: Tuple[Tuple[float, ...]] = ((0.5, 1.0, 2.0),)
-    MIN_SIZE: int = 1024
-    MAX_SIZE: int = 1025
+    MIN_SIZE: int = 960 #1024
+    MAX_SIZE: int = 961 #1025
     IMG_MEAN: List = field(default_factory=lambda: [0.485, 0.456, 0.406])
     IMG_STD: List = field(default_factory=lambda: [0.229, 0.224, 0.225])
     IOU_THRESHOLD: float = 0.5
@@ -85,7 +85,8 @@ def main():
     save_dir = os.getcwd() if not params.SAVE_DIR else params.SAVE_DIR
 
     # root directory
-    root = ROOT_PATH / "pytorch_faster_rcnn_tutorial" / "data" / "stop_line" # "heads"
+    root = ROOT_PATH / "pytorch_faster_rcnn_tutorial" / "data" / "stop_line"
+    # root = ROOT_PATH / "pytorch_faster_rcnn_tutorial" / "data" / "heads" 
 
     # input and target files
     inputs = get_filenames_of_path(root / "input")
@@ -96,7 +97,8 @@ def main():
 
     # mapping
     mapping = {
-        "stopline": 1, # "head": 1,
+        "stopline": 1,
+        # "head": 1,
     }
 
     # training transformations and augmentations
@@ -134,12 +136,13 @@ def main():
     # random seed
     seed_everything(params.SEED)
 
+
     # training validation test split
-    inputs_train, inputs_valid, inputs_test = inputs[:4], inputs[4:6], inputs[6:] #inputs[:12], inputs[12:16], inputs[16:]
+    inputs_train, inputs_valid, inputs_test = inputs[:27], inputs[27:31], inputs[31:] #inputs[:12], inputs[12:16], inputs[16:]
     targets_train, targets_valid, targets_test = (
-        targets[:4],
-        targets[4:6],
-        targets[6:],
+        targets[:27],
+        targets[27:31],
+        targets[31:],
     )
 
     # dataset training
