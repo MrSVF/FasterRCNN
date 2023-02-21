@@ -146,8 +146,7 @@ def main():
         targets[train_ind:valid_ind],
         targets[valid_ind:],
     )
-    print('len', len(inputs), 'train_ind', train_ind, ' valid_ind', valid_ind)
-    input()
+
     # dataset training
     dataset_train = ObjectDetectionDataSet(
         inputs=inputs_train,
