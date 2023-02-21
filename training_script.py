@@ -137,14 +137,17 @@ def main():
     seed_everything(params.SEED)
 
 
+    train_ind = int(len(inputs)*0.6)
+    valid_ind = train_ind + int(len(inputs)*0.2)
     # training validation test split
-    inputs_train, inputs_valid, inputs_test = inputs[:27], inputs[27:31], inputs[31:] #inputs[:12], inputs[12:16], inputs[16:]
+    inputs_train, inputs_valid, inputs_test = inputs[:train_ind], inputs[train_ind:valid_ind], inputs[valid_ind:] #inputs[:12], inputs[12:16], inputs[16:]
     targets_train, targets_valid, targets_test = (
-        targets[:27],
-        targets[27:31],
-        targets[31:],
+        targets[:train_ind],
+        targets[train_ind:valid_ind],
+        targets[valid_ind:],
     )
-
+    print('len', len(inputs), 'train_ind', train_ind, ' valid_ind', valid_ind)
+    input()
     # dataset training
     dataset_train = ObjectDetectionDataSet(
         inputs=inputs_train,

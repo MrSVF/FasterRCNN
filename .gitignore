@@ -3,5 +3,5 @@ __pycache__/
 *checkpoints/
 *F-RCNN/
 *.ckpt
-*input
-*target
+*/data/
+*predictions/
