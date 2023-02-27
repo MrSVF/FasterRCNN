@@ -58,7 +58,7 @@ class Params:
     PATIENCE: int = 50
     BACKBONE: ResNetBackbones = ResNetBackbones.RESNET34
     FPN: bool = False
-    ANCHOR_SIZE: Tuple[Tuple[int, ...], ...] = ((32, 64, 128, 256, 512),)
+    ANCHOR_SIZE: Tuple[Tuple[int, ...], ...] = ((64, 128, 256, 512),) #((32, 64, 128, 256, 512),)
     ASPECT_RATIOS: Tuple[Tuple[float, ...]] = ((0.5, 1.0, 2.0),)
     MIN_SIZE: int = 960 #1024
     MAX_SIZE: int = 961 #1025
@@ -139,13 +139,17 @@ def main():
 
     train_ind = int(len(inputs)*0.6)
     valid_ind = train_ind + int(len(inputs)*0.2)
+    train_ind = 40
+    valid_ind = 47
     # training validation test split
-    inputs_train, inputs_valid, inputs_test = inputs[:train_ind], inputs[train_ind:valid_ind], inputs[valid_ind:] #inputs[:12], inputs[12:16], inputs[16:]
+    inputs_train, inputs_valid, inputs_test = inputs[:train_ind], inputs[train_ind:valid_ind], inputs[valid_ind:90] #inputs[:12], inputs[12:16], inputs[16:]
     targets_train, targets_valid, targets_test = (
         targets[:train_ind],
         targets[train_ind:valid_ind],
-        targets[valid_ind:],
+        targets[valid_ind:90],
     )
+    # print(train_ind, valid_ind)
+    # input()
 
     # dataset training
     dataset_train = ObjectDetectionDataSet(
