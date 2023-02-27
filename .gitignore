@@ -3,5 +3,6 @@ __pycache__/
 *checkpoints/
 *F-RCNN/
 *.ckpt
-*/data/
 *predictions/
+*exported_images/
+*data/
