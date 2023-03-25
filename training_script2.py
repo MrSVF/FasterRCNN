@@ -50,15 +50,15 @@ class Params:
     GPU: Optional[int] = 1 #None  # set to None for cpu training
     LR: float = 0.001
     PRECISION: int = 32
-    CLASSES: int = 2
+    CLASSES: int = 3
     SEED: int = 42
     PROJECT: str = "F-RCNN"
-    EXPERIMENT: str = "StopLane"
+    EXPERIMENT: str = "SpeedBump"
     MAXEPOCHS: int = 500
     PATIENCE: int = 50
     BACKBONE: ResNetBackbones = ResNetBackbones.RESNET34
     FPN: bool = False
-    ANCHOR_SIZE: Tuple[Tuple[int, ...], ...] = ((64, 128, 256, 512),) #((32, 64, 128, 256, 512),)
+    ANCHOR_SIZE: Tuple[Tuple[int, ...], ...] = ((32, 64, 128, 256, 512),) #((32, 64, 128, 256, 512),)
     ASPECT_RATIOS: Tuple[Tuple[float, ...]] = ((0.5, 1.0, 2.0),)
     MIN_SIZE: int = 960 #1024
     MAX_SIZE: int = 961 #1025
@@ -85,7 +85,7 @@ def main():
     save_dir = os.getcwd() if not params.SAVE_DIR else params.SAVE_DIR
 
     # root directory
-    root = ROOT_PATH / "pytorch_faster_rcnn_tutorial" / "data" / "stop_line"
+    root = ROOT_PATH / "pytorch_faster_rcnn_tutorial" / "data" / "speed_bump"
     # root = ROOT_PATH / "pytorch_faster_rcnn_tutorial" / "data" / "heads" 
 
     # input and target files
@@ -97,8 +97,8 @@ def main():
 
     # mapping
     mapping = {
-        "stopline": 1,
-        # "head": 1,
+        "speedbump": 1,
+        "bumpsign": 2,
     }
 
     # training transformations and augmentations
@@ -139,16 +139,18 @@ def main():
 
     train_ind = int(len(inputs)*0.6)
     valid_ind = train_ind + int(len(inputs)*0.2)
-    train_ind = 40
-    valid_ind = 47
+    train_ind = 60
+    valid_ind = 70
     # training validation test split
-    inputs_train, inputs_valid, inputs_test = inputs[:train_ind], inputs[train_ind:valid_ind], inputs[valid_ind:90] #inputs[:12], inputs[12:16], inputs[16:]
+    inputs_train, inputs_valid, inputs_test = inputs[:train_ind], inputs[train_ind:valid_ind], inputs[valid_ind:] #inputs[:12], inputs[12:16], inputs[16:]
     targets_train, targets_valid, targets_test = (
         targets[:train_ind],
         targets[train_ind:valid_ind],
-        targets[valid_ind:90],
+        targets[valid_ind:],
     )
     # print(train_ind, valid_ind)
+    # input()
+    # print('targets_train:', targets_train[0])
     # input()
 
     # dataset training
@@ -156,7 +158,7 @@ def main():
         inputs=inputs_train,
         targets=targets_train,
         transform=transforms_training,
-        use_cache=True,
+        use_cache=False, #True
         convert_to_format=None,
         mapping=mapping,
     )
@@ -166,7 +168,7 @@ def main():
         inputs=inputs_valid,
         targets=targets_valid,
         transform=transforms_validation,
-        use_cache=True,
+        use_cache=False, #True
         convert_to_format=None,
         mapping=mapping,
     )
@@ -176,7 +178,7 @@ def main():
         inputs=inputs_test,
         targets=targets_test,
         transform=transforms_test,
-        use_cache=True,
+        use_cache=False, #True
         convert_to_format=None,
         mapping=mapping,
     )
