@@ -41,7 +41,7 @@ from pytorch_faster_rcnn_tutorial.utils import (
 # hyper-parameters
 @dataclass
 class Params:
-    BATCH_SIZE: int = 1#2
+    BATCH_SIZE: int = 2
     OWNER: str = "svf"  # set your name here, e.g. johndoe22, было: "johschmidt42"
     SAVE_DIR: Optional[
         str
@@ -53,15 +53,15 @@ class Params:
     CLASSES: int = 3
     SEED: int = 42
     PROJECT: str = "F-RCNN"
-    EXPERIMENT: str = "SpeedBump"
+    EXPERIMENT: str = "CrossLane"
     MAXEPOCHS: int = 500
     PATIENCE: int = 50
     BACKBONE: ResNetBackbones = ResNetBackbones.RESNET34
-    FPN: bool = False#True
-    ANCHOR_SIZE: Tuple[Tuple[int, ...], ...] = ((32, 64, 128, 256, 512),) #((32, 64, 128, 256, 512),) #(16,), (32,), (64,), (128,), (256,), (512,)
+    FPN: bool = False
+    ANCHOR_SIZE: Tuple[Tuple[int, ...], ...] = ((32, 64, 128, 256, 512),) #((32, 64, 128, 256, 512),)
     ASPECT_RATIOS: Tuple[Tuple[float, ...]] = ((0.5, 1.0, 2.0),)
-    MIN_SIZE: int = 2560 #1024
-    MAX_SIZE: int = 2561 #1025
+    MIN_SIZE: int = 960 #1024
+    MAX_SIZE: int = 961 #1025
     IMG_MEAN: List = field(default_factory=lambda: [0.485, 0.456, 0.406])
     IMG_STD: List = field(default_factory=lambda: [0.229, 0.224, 0.225])
     IOU_THRESHOLD: float = 0.5
@@ -85,20 +85,20 @@ def main():
     save_dir = os.getcwd() if not params.SAVE_DIR else params.SAVE_DIR
 
     # root directory
-    root = ROOT_PATH / "pytorch_faster_rcnn_tutorial" / "data" / "speed_bump"
+    root = ROOT_PATH / "pytorch_faster_rcnn_tutorial" / "data" / "cross_lane"
     # root = ROOT_PATH / "pytorch_faster_rcnn_tutorial" / "data" / "heads" 
 
     # input and target files
-    inputs = get_filenames_of_path(root / "input1-2")
-    targets = get_filenames_of_path(root / "target1-2")
+    inputs = get_filenames_of_path(root / "input")
+    targets = get_filenames_of_path(root / "target")
 
     inputs.sort()
     targets.sort()
 
     # mapping
     mapping = {
-        "speedbump": 1,
-        "bumpsign": 2,
+        "crossdash": 1,
+        "crosssolid": 2,
     }
 
     # training transformations and augmentations
@@ -139,8 +139,8 @@ def main():
 
     train_ind = int(len(inputs)*0.6)
     valid_ind = train_ind + int(len(inputs)*0.2)
-    # train_ind = 60
-    # valid_ind = 70
+    # train_ind = 10
+    # valid_ind = 5
     # training validation test split
     inputs_train, inputs_valid, inputs_test = inputs[:train_ind], inputs[train_ind:valid_ind], inputs[valid_ind:] #inputs[:12], inputs[12:16], inputs[16:]
     targets_train, targets_valid, targets_test = (
@@ -230,7 +230,7 @@ def main():
         min_size=params.MIN_SIZE,
         max_size=params.MAX_SIZE,
     )
-    model
+
     # lightning init
     task = FasterRCNNLightning(
         model=model, lr=params.LR, iou_threshold=params.IOU_THRESHOLD
