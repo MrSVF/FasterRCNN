@@ -17,8 +17,8 @@ dest_dir_tar = os.path.join(root, 'target2_cxcywh')
 pathlib.Path(dest_dir_tar).mkdir(parents=True, exist_ok=True)
 
 mapping = {
-    "speedbump": 1,
-    "bumpsign": 2,
+    "speedbump": 0,
+    "bumpsign": 1,
 }
 
 for i, filename in enumerate(targets):
