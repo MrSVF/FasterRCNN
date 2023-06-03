@@ -41,7 +41,7 @@ from pytorch_faster_rcnn_tutorial.utils import (
 # hyper-parameters
 @dataclass
 class Params:
-    BATCH_SIZE: int = 1#2
+    BATCH_SIZE: int = 2#2
     OWNER: str = "svf"  # set your name here, e.g. johndoe22, было: "johschmidt42"
     SAVE_DIR: Optional[
         str
@@ -60,8 +60,8 @@ class Params:
     FPN: bool = False#True
     ANCHOR_SIZE: Tuple[Tuple[int, ...], ...] = ((32, 64, 128, 256, 512),) #((32, 64, 128, 256, 512),) #(16,), (32,), (64,), (128,), (256,), (512,)
     ASPECT_RATIOS: Tuple[Tuple[float, ...]] = ((0.5, 1.0, 2.0),)
-    MIN_SIZE: int = 1440 #1024
-    MAX_SIZE: int = 1441 #1025
+    MIN_SIZE: int = 2560 #1024
+    MAX_SIZE: int = 2561 #1025
     IMG_MEAN: List = field(default_factory=lambda: [0.485, 0.456, 0.406])
     IMG_STD: List = field(default_factory=lambda: [0.229, 0.224, 0.225])
     IOU_THRESHOLD: float = 0.5
@@ -89,8 +89,8 @@ def main():
     # root = ROOT_PATH / "pytorch_faster_rcnn_tutorial" / "data" / "heads" 
 
     # input and target files
-    inputs = get_filenames_of_path(root / "input2")
-    targets = get_filenames_of_path(root / "target2")
+    inputs = get_filenames_of_path(root / "input2-3_rnd")
+    targets = get_filenames_of_path(root / "target2-3_rnd")
 
     inputs.sort()
     targets.sort()
