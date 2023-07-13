@@ -58,7 +58,7 @@ class Params:
     PATIENCE: int = 50
     BACKBONE: ResNetBackbones = ResNetBackbones.RESNET34
     FPN: bool = False
-    ANCHOR_SIZE: Tuple[Tuple[int, ...], ...] = ((32, 64, 128, 256, 512),) #((32, 64, 128, 256, 512),)
+    ANCHOR_SIZE: Tuple[Tuple[int, ...], ...] = ((24, 32, 64, 128, 256, 512),) #((32, 64, 128, 256, 512),)
     ASPECT_RATIOS: Tuple[Tuple[float, ...]] = ((0.5, 1.0, 2.0),)
     MIN_SIZE: int = 2560 #1024
     MAX_SIZE: int = 2561 #1025
@@ -89,8 +89,8 @@ def main():
     # root = ROOT_PATH / "pytorch_faster_rcnn_tutorial" / "data" / "heads" 
 
     # input and target files
-    inputs = get_filenames_of_path(root / "input2")
-    targets = get_filenames_of_path(root / "target2")
+    inputs = get_filenames_of_path(root / "input6_rnd_addref")
+    targets = get_filenames_of_path(root / "target6_rnd_addref")
 
     inputs.sort()
     targets.sort()
@@ -137,10 +137,10 @@ def main():
     seed_everything(params.SEED)
 
 
-    train_ind = int(len(inputs)*0.6)
-    valid_ind = train_ind + int(len(inputs)*0.2)
-    # train_ind = 40
-    # valid_ind = 47
+    train_ind = int(len(inputs)*0.8)
+    valid_ind = train_ind + int(len(inputs)*0.1)
+    # train_ind = 110
+    # valid_ind = 115
     # training validation test split
     inputs_train, inputs_valid, inputs_test = inputs[:train_ind], inputs[train_ind:valid_ind], inputs[valid_ind:] #inputs[:train_ind], inputs[train_ind:valid_ind], inputs[valid_ind:90]
     targets_train, targets_valid, targets_test = (
