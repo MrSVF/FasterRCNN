@@ -101,6 +101,11 @@ class ObjectDetectionDataSet(Dataset):
                 boxes, in_fmt="xyxy", out_fmt="xywh"
             )  # transforms boxes from xyxy to xywh format
 
+        if len(y['boxes']) == 0:
+            boxes = torch.zeros((0, 4), dtype=torch.float32)
+        else:
+            boxes = torch.as_tensor(boxes, dtype=torch.float32) 
+
         # Create target
         target = {"boxes": boxes, "labels": labels}
 

@@ -58,7 +58,7 @@ class Params:
     PATIENCE: int = 50
     BACKBONE: ResNetBackbones = ResNetBackbones.RESNET34
     FPN: bool = False
-    ANCHOR_SIZE: Tuple[Tuple[int, ...], ...] = ((24, 32, 64, 128, 256, 512),) #((32, 64, 128, 256, 512),)
+    ANCHOR_SIZE: Tuple[Tuple[int, ...], ...] = ((16, 32, 64, 128, 256, 512),) #((32, 64, 128, 256, 512),)
     ASPECT_RATIOS: Tuple[Tuple[float, ...]] = ((0.5, 1.0, 2.0),)
     MIN_SIZE: int = 2560 #1024
     MAX_SIZE: int = 2561 #1025

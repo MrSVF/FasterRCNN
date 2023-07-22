@@ -24,4 +24,15 @@ str_cxcywh+="{:.0f}".format(0) + " " +\
 print(str_cxcywh)
 
 str = "{:.10f}".format(0).rstrip('0').rstrip('.')
-print(str)
+print('str:', str)
+
+a = {    "labels": 
+     [        
+         "stopline"
+    ],
+    "boxes": 
+    [      
+        
+    ]      }
+
+print(len(a['boxes']))
